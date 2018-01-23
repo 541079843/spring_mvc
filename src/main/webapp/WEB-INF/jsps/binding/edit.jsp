@@ -7,6 +7,10 @@
     <title>hello world</title>
 </head>
 <body>
-Hello Here!${personId}
+    <form action="/binding/people/save" method="post">
+        <p>name: <input type="text" name="name" /></p>
+        <p>age: <input type="text" name="age" /></p>
+        <input type="submit" value="Submit" />
+    </form>
 </body>
 </html>

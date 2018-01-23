@@ -1,25 +1,43 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="utf-8"?>
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+<!-- DTD Web Application 2.3 默认会 关闭 jsp el表达式语言 关闭 所以不用她-->
+<!--<!DOCTYPE web-app PUBLIC-->
+<!--"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"-->
+<!--"http://java.sun.com/dtd/web-app_2_3.dtd" >-->
+<!--<web-app>-->
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="
+            http://java.cun.com/xml/ns/j2ee
+            http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-  <serlet>
-    <servlet-name>mvc-dispatcher</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 
-    <!-- DispatcherServlet 对应的上下文配置， 默认为/WEB-INF/${servlet-name}-servlet.xml -->
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/configs/spring/mvc-dispatcher-servlet.xml</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </serlet>
-  <serlet-mapping>
-    <servler-name>mvc-dispatcher</servler-name>
+    <display-name>Spring MVC Demo</display-name>
 
-    <!-- mvc-dispatcher 拦截所有请求-->
-    <url-pattern>/</url-pattern>
-  </serlet-mapping>
+    <!-- 理解层次化的ApplicationContext, Spring 上下文 与 DispatcherServlet 上下文-->
+    <!-- 配置 Spring 上下文-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/configs/spring/applicationContext*.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 配置 DispatcherServlet 上下文-->
+    <servlet>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- DispatcherServlet 对应的上下文配置， 默认为/WEB-INF/${servlet-name}-servlet.xml -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/configs/spring/mvc-dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <!-- mvc-dispatcher 拦截所有请求-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>
