@@ -1,4 +1,9 @@
 com/springmvc/mvc/controller/BindingController.class
+com/springmvc/mvc/Interceptor/TestInterceptor.class
+com/springmvc/mvc/Service/MvcServiceImp.class
 com/springmvc/mvc/DAO/PersonImp.class
+com/springmvc/mvc/controller/JsonController.class
 com/springmvc/mvc/DAO/Person.class
+com/springmvc/mvc/controller/UploadController.class
 com/springmvc/mvc/controller/RequestController.class
+com/springmvc/mvc/Service/MvcService.class

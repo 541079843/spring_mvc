@@ -29,10 +29,47 @@
     <mvc:resources mapping="/resources/*" location="/resources/"/>
 
     <!-- 配置 ViewResolver 可以用多个ViewResolver, 使用 order 属性排序, InnerReourceViewResolver 放到最后-->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <value>
+                json=application/json
+                xml=application/xml
+                html=text/html
+            </value>
+        </property>
+        <property name="ignoreAcceptHeader" value="true"/>
+        <property name= "defaultContentType" value= "application/json" />
+    </bean>
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="2"/>
+        <property name="ContentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="defaultViews">
+            <list>
+                <!--<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>-->
+            </list>
+        </property>
+    </bean>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsps/"/>
         <property name="suffix" value=".jsp"/>
+        <property name="order" value="1"/>
     </bean>
 
+
+     <!-- 200*1024*1024 200M, resolveLazily 启用推迟文件解析 捕获文件大小异常 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="209715200" />
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="resolveLazily" value="true"/>
+    </bean>
+
+    <!-- 添加拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/binding/people/edit"/>
+            <bean class="com.springmvc.mvc.Interceptor.TestInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
